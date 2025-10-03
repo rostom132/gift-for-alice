@@ -56,7 +56,7 @@
 <h1 style="position: fixed; bottom: 10px; right: 10px; font-size: 18px; font-family: Arial, sans-serif; color: white; background: rgba(0, 0, 0, 0.4); padding: 6px 12px; border-radius: 8px; z-index: 9999;">
   Create by Tomkuda
 </h1>
-  <button id="musicButton">Musik loading 🎵</button>
+  <button id="musicButton">Musik loading ... 🎵</button>
   <div id="player"></div>
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
@@ -78,21 +78,21 @@
           onReady: () => {
             const btn = document.getElementById('musicButton');
             btn.disabled = false;
-            btn.innerText = "Musik 🎵";
+            btn.innerText = "Play Musik 🎵";
 
             // toggle play/pause
-            let playing = true;
-            player.playVideo();
+            let playing = false;
+
             btn.addEventListener("click", () => {
-            if (playing) {
-              player.pauseVideo();
-              btn.innerText = "Play 🎵";
-            } else {
-              player.playVideo();
-              btn.innerText = "Pause ⏸️";
-            }
-            playing = !playing;
-        });
+              if (playing) {
+                player.pauseVideo();
+                btn.innerText = "Play 🎵";
+              } else {
+                player.playVideo();
+                btn.innerText = "Pause ⏸️";
+              }
+              playing = !playing;
+            });
           },
           onStateChange: (event) => {
             if (event.data === YT.PlayerState.ENDED) {
