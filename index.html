@@ -93,10 +93,12 @@
     document.getElementById('musicButton').addEventListener('click', () => {
       if (player && !playing) {
         player.playVideo();
-        document.getElementById('musicButton').innerText = "Play 🎵";
+        document.getElementById('musicButton').innerText = "Pause 🎵";
+        playing = true;
       } else if (player && playing) {
         player.pauseVideo();
         document.getElementById('musicButton').innerText = "Play 🎵";
+        playing = false;
       }
     });
   </script>
