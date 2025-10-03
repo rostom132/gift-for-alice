@@ -56,11 +56,12 @@
 <h1 style="position: fixed; bottom: 10px; right: 10px; font-size: 18px; font-family: Arial, sans-serif; color: white; background: rgba(0, 0, 0, 0.4); padding: 6px 12px; border-radius: 8px; z-index: 9999;">
   Create by Tomkuda
 </h1>
-  <button id="musicButton">Musik loading ... 🎵</button>
+  <button id="musicButton" disabled>Musik loading ... 🎵</button>
   <div id="player"></div>
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
     let player;
+    let playing = false;
     const startTime = 2;
     window.onYouTubeIframeAPIReady = function() {
       player = new YT.Player('player', {
@@ -78,22 +79,7 @@
           onReady: () => {
             const btn = document.getElementById('musicButton');
             btn.disabled = false;
-            btn.innerText = "Play Musik 🎵";
-
-            // toggle play/pause
-            let playing = false;
-
-            btn.addEventListener("click", () => {
-              if (playing) {
-                player.pauseVideo();
-                btn.innerText = "Play 🎵";
-              } else {
-                player.unMute();
-                player.playVideo();
-                btn.innerText = "Pause ⏸️";
-              }
-              playing = !playing;
-            });
+            btn.innerText = "Play music 🎵";
           },
           onStateChange: (event) => {
             if (event.data === YT.PlayerState.ENDED) {
@@ -103,6 +89,16 @@
         }
       });
     };
+
+    document.getElementById('musicButton').addEventListener('click', () => {
+      if (player && !playing) {
+        player.playVideo();
+        document.getElementById('musicButton').innerText = "Play 🎵";
+      } else if (player && playing) {
+        player.pauseVideo();
+        document.getElementById('musicButton').innerText = "Play 🎵";
+      }
+    });
   </script>
 
   <script type="module" src="script.js"></script>
